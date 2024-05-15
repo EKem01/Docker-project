@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Profile</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .profile-container {
+        max-width: 400px;
+        margin: 15px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .saved-profile {
+        margin-top: 25px;
+        margin: 10px;
+    }
+    hr {
+        width: 500px;
+        margin-left: 0;
+    }
+    img {
+        width: 330px;
+        height: 287px;
+        display: block;
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="profile-container">
+    <img src="profile-picture" alt="">
+    <h2>User Profile</h2>
+    <form id="profileForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required><br>
+        <label for="interests">Interests:</label>
+        <input type="text" id="interests" name="interests" required><br>
+        <button type="button" onclick="editProfile()">Edit Profile</button>
+        <button type="button" onclick="saveProfile()" style="display: none;">Save Profile</button>
+    </form>
+</div>
+
+<div class="saved-profile" id="savedProfile" style="display: none;">
+    <h2>Saved Profile</h2>
+    <hr>
+    <p><strong>Name:</strong> <span id="savedName"></span></p>
+    <p><strong>Email:</strong> <span id="savedEmail"></span></p>
+    <p><strong>Interests:</strong> <span id="savedInterests"></span></p>
+</div>
+
+<script>
+    function editProfile() {
+        document.getElementById('name').readOnly = false;
+        document.getElementById('email').readOnly = false;
+        document.getElementById('interests').readOnly = false;
+        document.querySelector('button[type="button"][onclick="editProfile()"]').style.display = 'none';
+        document.querySelector('button[type="button"][onclick="saveProfile()"]').style.display = 'block';
+    }
+
+    function saveProfile() {
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var interests = document.getElementById('interests').value;
+
+        if (name.trim() === '' || email.trim() === '' || interests.trim() === '') {
+            alert('Please fill out all fields');
+            return;
+        }
+
+        document.getElementById('name').readOnly = true;
+        document.getElementById('email').readOnly = true;
+        document.getElementById('interests').readOnly = true;
+        document.querySelector('button[type="button"][onclick="editProfile()"]').style.display = 'block';
+        document.querySelector('button[type="button"][onclick="saveProfile()"]').style.display = 'none';
+
+        document.getElementById('savedName').textContent = name;
+        document.getElementById('savedEmail').textContent = email;
+        document.getElementById('savedInterests').textContent = interests;
+
+        document.getElementById('savedProfile').style.display = 'block';
+
+            // Clear user input fields
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('interests').value = '';
+    }
+</script>
+
+</body>
+</html>
